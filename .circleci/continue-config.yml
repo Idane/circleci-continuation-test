@@ -1,0 +1,32 @@
+version: 2.1
+
+executors:
+  base:
+    docker:
+      - image: cimg/base:stable
+parameters:
+  service-a:
+    type: boolean
+    default: false
+  service-b:
+    type: boolean
+    default: false
+    
+jobs:
+  service_build:
+    executor: base
+    parameters:
+      name:
+        type: string
+    steps:
+      - run: echo Building <<parametrs.name>>       
+workflows:
+  build_a:
+    when: 
+      and:
+        - << pipeline.parameters.service-a >>
+    
+  build_b:
+    when: 
+      and:
+        - << pipeline.parameters.service-b >>
