@@ -16,17 +16,21 @@ jobs:
   service_build:
     executor: base
     parameters:
-      name:
+      serviceName:
         type: string
     steps:
-      - run: echo Building <<parametrs.name>>       
+      - run: echo Building <<parametrs.serviceName>>       
 workflows:
-  build_a:
+  service_build:
+    name: build_a
+    serviceName: service-a
     when: 
       and:
         - << pipeline.parameters.service-a >>
     
-  build_b:
+  service_build:
+    name: build_b
+    serviceName: service-a
     when: 
       and:
         - << pipeline.parameters.service-b >>
