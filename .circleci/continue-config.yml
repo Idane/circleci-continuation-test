@@ -18,9 +18,11 @@ jobs:
     executor: base
     parameters:
       serviceName:
+        description: The service name
         type: string
+        default: NONE
     steps:
-      - run: echo Building <<parametrs.serviceName>>
+      - run: echo Building <<parameters.serviceName>>
        
 workflows:
   build_a:
