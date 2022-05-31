@@ -4,6 +4,7 @@ executors:
   base:
     docker:
       - image: cimg/base:stable
+
 parameters:
   service-a:
     type: boolean
@@ -19,18 +20,22 @@ jobs:
       serviceName:
         type: string
     steps:
-      - run: echo Building <<parametrs.serviceName>>       
+      - run: echo Building <<parametrs.serviceName>>
+       
 workflows:
-  service_build:
-    name: build_a
-    serviceName: service-a
+  build_a:
     when: 
       and:
         - << pipeline.parameters.service-a >>
+    jobs:
+      - service_build:
+          serviceName: service-a
+  
     
-  service_build:
-    name: build_b
-    serviceName: service-a
+  build_b:
     when: 
       and:
         - << pipeline.parameters.service-b >>
+    jobs:
+      - service_build:
+          serviceName: service-b
